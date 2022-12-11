@@ -1,0 +1,52 @@
+package abg.dev.api;
+
+import abg.dev.business.validators.ValidationService;
+import abg.dev.core.utilities.results.DataResult;
+import abg.dev.business.abstracts.UserService;
+import abg.dev.core.utilities.results.Result;
+import abg.dev.entities.concretes.User;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/users")
+@CrossOrigin
+public class UserController extends ValidationService {
+    private UserService userService;
+
+    @Autowired
+    public UserController(UserService userService) {
+        super();
+        this.userService = userService;
+    }
+
+    @GetMapping("/getall")
+    public DataResult<List<User>> getAll(){
+        return this.userService.getAll();
+    }
+
+    @GetMapping("/getbyid")
+    public DataResult<User> getById(@RequestParam int id){
+        return this.userService.getById(id);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<DataResult<User>> add(@Valid @RequestBody User user){
+        return ResponseEntity.ok(userService.add(user));
+    }
+
+    @DeleteMapping("/deletebyid")
+    Result deleteById(@RequestParam int id){
+        return this.userService.delete(id);
+    }
+
+    @PutMapping("/update")
+    ResponseEntity<?> update(@Valid @RequestBody User user){
+        return ResponseEntity.ok(this.userService.update(user));
+    }
+
+}
