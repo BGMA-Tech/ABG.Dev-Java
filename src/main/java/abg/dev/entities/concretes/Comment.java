@@ -10,15 +10,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @Entity
-@Table(name = "tweets")
+@Table(name = "comments")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Tweet {
-
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -27,8 +25,8 @@ public class Tweet {
     @Size(min = 2, max = 255, message = "Please enter a text within the borders")
     @NotNull
     @NotBlank
-    @Column(name = "tweet")
-    private String tweet;
+    @Column(name = "comment")
+    private String comment;
 
     @Column(name = "created_at")
     private LocalDate createdAt = LocalDate.now();
@@ -38,12 +36,20 @@ public class Tweet {
 
     @Column(name = "user_id")
     private int userId;
-
+    
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "tweet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Comment> commentList;
+    @Column(name = "tweet_id")
+    private int tweetId;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "tweet_id", insertable = false, updatable = false)
+    @JsonIgnore
+    private Tweet tweet;
+
 }
+
+

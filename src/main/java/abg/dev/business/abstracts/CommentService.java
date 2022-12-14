@@ -7,11 +7,9 @@ import abg.dev.entities.concretes.Tweet;
 
 import java.util.List;
 
-public interface TweetService {
-    DataResult<List<Tweet>> getAll();
-    DataResult<List<Tweet>> getAllByUserId(int userId);
-    DataResult<Tweet> getById(int id);
+public interface CommentService {
+    DataResult<List<Comment>> getAllByTweetId(int tweetId);
     Result deleteById(int id);
-    DataResult<Tweet> add(Tweet tweet);
-
+    DataResult<Comment> add(Comment comment);
+    DataResult<Comment> update(Comment comment);
 }
