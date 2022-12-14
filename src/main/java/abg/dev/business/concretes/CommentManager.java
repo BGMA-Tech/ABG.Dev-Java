@@ -3,9 +3,7 @@ package abg.dev.business.concretes;
 import abg.dev.business.abstracts.CommentService;
 import abg.dev.core.utilities.results.*;
 import abg.dev.dataAccess.abstracts.CommentDao;
-import abg.dev.dataAccess.abstracts.TweetDao;
 import abg.dev.entities.concretes.Comment;
-import abg.dev.entities.concretes.Tweet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +26,7 @@ public class CommentManager implements CommentService {
 
     @Override
     public Result deleteById(int id) {
-        Optional<Comment> comment =this.commentDao.findById(id);
+        Optional<Comment> comment = this.commentDao.findById(id);
         if (comment.isPresent()) {
             this.commentDao.deleteById(id);
             return new SuccessResult("Comment deleted successfully");
@@ -44,10 +42,10 @@ public class CommentManager implements CommentService {
 
     @Override
     public DataResult<Comment> update(Comment comment) {
-        if(this.commentDao.existsById(comment.getId())){
+        if (this.commentDao.existsById(comment.getId())) {
             this.commentDao.save(comment);
-                    return new SuccessDataResult<Comment>(comment, "Baasariyla guncellendi");
+            return new SuccessDataResult<Comment>(comment, "Baasariyla guncellendi");
         }
-        return new ErrorDataResult<Comment>("Kullanici bulunamadi");
+        return new ErrorDataResult<Comment>("Yorum bulunamadi");
     }
 }

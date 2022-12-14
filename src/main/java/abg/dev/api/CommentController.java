@@ -1,12 +1,10 @@
 package abg.dev.api;
 
 import abg.dev.business.abstracts.CommentService;
-import abg.dev.business.abstracts.TweetService;
 import abg.dev.business.validators.ValidationService;
 import abg.dev.core.utilities.results.DataResult;
 import abg.dev.core.utilities.results.Result;
 import abg.dev.entities.concretes.Comment;
-import abg.dev.entities.concretes.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,22 +22,24 @@ public class CommentController extends ValidationService {
     public CommentController(CommentService commentService) {
         this.commentService = commentService;
     }
+
     @GetMapping("/getAllByTweetId")
     DataResult<List<Comment>> getAllByTweetId(@RequestParam int tweetId) {
         return this.commentService.getAllByTweetId(tweetId);
+    }
 
-        }
     @DeleteMapping("/deleteById")
-    Result deleteById(@RequestParam int id){
+    Result deleteById(@RequestParam int id) {
         return this.commentService.deleteById(id);
     }
 
     @PostMapping("/add")
-    DataResult<Comment> add(@Valid @RequestBody Comment comment){
+    DataResult<Comment> add(@Valid @RequestBody Comment comment) {
         return this.commentService.add(comment);
     }
+
     @PutMapping("/update")
-    ResponseEntity<?> update(@Valid @RequestBody Comment comment){
+    ResponseEntity<?> update(@Valid @RequestBody Comment comment) {
         return ResponseEntity.ok(this.commentService.update(comment));
     }
 

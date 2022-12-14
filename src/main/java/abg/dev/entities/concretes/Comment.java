@@ -36,8 +36,7 @@ public class Comment {
 
     @Column(name = "user_id")
     private int userId;
-
-
+    
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     @JsonIgnore
