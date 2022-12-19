@@ -64,4 +64,13 @@ public class UserManager implements UserService {
         this.userDao.save(user);
         return new SuccessDataResult<User>(user,new UserMessages().getUpdateUser());
     }
+
+    @Override
+    public DataResult<User> login(User user) {
+        User userFound = this.userDao.findByEmailAndPassword(user.getEmail(), user.getPassword());
+        if (userFound == null ){
+            return new ErrorDataResult<User>(this.userDao.findByEmailAndPassword(user.getEmail(), user.getPassword()),"User not found");
+        }
+        return new SuccessDataResult<User>(this.userDao.findByEmailAndPassword(user.getEmail(), user.getPassword()));
+    }
 }
