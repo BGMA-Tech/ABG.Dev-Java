@@ -1,6 +1,8 @@
 package abg.dev.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -37,14 +39,11 @@ public class Tweet {
     @Column(name = "like_count")
     private int likeCount = 0;
 
-    @Column(name = "user_id")
-    private int userId;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
-    @JsonIgnore
+    @JsonIgnoreProperties("password")
     private User user;
 
-    @OneToMany(mappedBy = "tweet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Comment.class,mappedBy = "tweet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> commentList = new ArrayList<Comment>();
 }

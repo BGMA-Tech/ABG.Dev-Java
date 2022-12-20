@@ -34,16 +34,10 @@ public class Comment {
     @Column(name = "like_count")
     private int likeCount = 0;
 
-    @Column(name = "user_id")
-    private int userId;
-    
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     @JsonIgnore
     private User user;
-
-    @Column(name = "tweet_id")
-    private int tweetId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "tweet_id", insertable = false, updatable = false)
