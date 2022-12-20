@@ -49,4 +49,9 @@ public class UserController extends ValidationService {
         return ResponseEntity.ok(this.userService.update(user));
     }
 
+    @PostMapping("/login")
+    ResponseEntity<DataResult<User>> login(@Valid @RequestBody User user){
+        return ResponseEntity.ok(this.userService.login(user));
+    }
+
 }
