@@ -12,4 +12,5 @@ public interface UserService {
     DataResult<User> add(User user);
     Result delete(int userId);
     DataResult<User> update(User user);
+    DataResult<User> login(User user);
 }

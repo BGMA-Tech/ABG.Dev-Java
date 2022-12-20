@@ -1,5 +1,8 @@
 package abg.dev.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -16,6 +19,7 @@ import java.util.List;
 @Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibarnateLazyInitializer", "handler", "tweetList", "hibarnateLazyInitializer", "handler", "commentList"})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,11 +38,10 @@ public class User {
 
     @Size(max = 50, message = "Gireceğiniz ifade 50 karakterden az olmalıdır.")
     @NotNull
-    @NotBlank
     @Column(name = "user_name")
     private String userName;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Tweet> tweetList = new ArrayList<Tweet>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
