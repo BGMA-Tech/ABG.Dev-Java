@@ -21,7 +21,7 @@ public class CommentManager implements CommentService {
 
     @Override
     public DataResult<List<Comment>> getAllByTweetId(int tweetId) {
-        return new SuccessDataResult<List<Comment>>(this.commentDao.getByTweetId(tweetId));
+        return new SuccessDataResult<List<Comment>>(this.commentDao.getByTweet_Id(tweetId));
     }
 
     @Override

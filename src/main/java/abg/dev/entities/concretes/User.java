@@ -19,7 +19,7 @@ import java.util.List;
 @Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibarnateLazyInitializer", "handler", "tweetList", "hibarnateLazyInitializer", "handler", "commentList"})
+@JsonIgnoreProperties({"hibarnateLazyInitializer", "handler", "tweetList", "commentList"})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,13 +31,10 @@ public class User {
     private String email;
 
     @Size(max = 50, message = "Gireceğiniz ifade 50 karakterden az olmalıdır.")
-    @NotNull
-    @NotBlank
     @Column(name = "password")
     private String password;
 
     @Size(max = 50, message = "Gireceğiniz ifade 50 karakterden az olmalıdır.")
-    @NotNull
     @Column(name = "user_name")
     private String userName;
 
