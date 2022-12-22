@@ -5,11 +5,16 @@ import abg.dev.core.utilities.results.DataResult;
 import abg.dev.business.abstracts.UserService;
 import abg.dev.core.utilities.results.Result;
 import abg.dev.entities.concretes.User;
+import abg.dev.entities.dtos.UserLoginDto;
+import abg.dev.entities.dtos.UserRegisterDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @RestController
@@ -35,8 +40,13 @@ public class UserController extends ValidationService {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<DataResult<User>> add(@Valid @RequestBody User user){
+    public ResponseEntity<DataResult<User>> add(@Valid @RequestBody User user) {
         return ResponseEntity.ok(userService.add(user));
+    }
+    @PostMapping("/register")
+    public ResponseEntity<DataResult<UserRegisterDto>> register(@Valid @RequestBody UserRegisterDto userRegisterDto)
+            throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
+        return ResponseEntity.ok(userService.register(userRegisterDto));
     }
 
     @DeleteMapping("/deletebyid")
@@ -50,8 +60,8 @@ public class UserController extends ValidationService {
     }
 
     @PostMapping("/login")
-    ResponseEntity<DataResult<User>> login(@Valid @RequestBody User user){
-        return ResponseEntity.ok(this.userService.login(user));
+    ResponseEntity<DataResult<User>> login(@Valid @RequestBody UserLoginDto userLoginDto) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
+        return ResponseEntity.ok(this.userService.login(userLoginDto));
     }
 
 }

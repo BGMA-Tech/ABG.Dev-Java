@@ -34,6 +34,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "password_hash")
+    private String passwordHash;
+
     @Size(max = 50, message = "Gireceğiniz ifade 50 karakterden az olmalıdır.")
     @Column(name = "user_name")
     private String userName;
